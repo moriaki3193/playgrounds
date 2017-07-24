@@ -1,4 +1,5 @@
 *.tex
+*.ipynb_checkpoints
 /l2r/MQ2008*
 /notebooks/datasets/
 /notebooks/.ipynb_checkpoints/
