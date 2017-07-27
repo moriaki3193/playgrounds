@@ -1,6 +1,8 @@
 # Python stats
 
 ## StatsModels
+`endog`は目的変数、`exog`は説明変数を意味する。
+
 ### Linear Regression
 線形回帰モデルを利用できる。
 
@@ -13,6 +15,28 @@
 
 デフォルトの設定では`OLS`は`intercept`を考慮しない。ので、
 データに`statsmodels.tools.add_constant`して`hasconst`を`True`にする必要がある。
+
+### Generalized Linear Models
+一般化線形モデルを利用できる。
+母数が1つの分布族の推定に対応している。具体的には次のような目的変数の分布を仮定できる。
+
+これらはだいたい`sm.families.Gamma()`などして指定することができる。
+
++ Binomial (二項分布)
++ Poisson (ポアソン分布)
++ Normal (正規分布)
++ Gamma (ガンマ分布)
+
+### Example
+線形モデルの場合とだいたい同じで、`目的変数`, `説明変数`, `仮定する分布`を渡せば良い。
+
+```Python
+import statsmodels.api as sm
+data = sm.datasets.scotland.load()
+data.exog = sm.add_constant(data.exog)
+gamma_model = sm.GLM(data.endog, data.exog, family=sm.families.Gamma())
+gamma_results = gamma_model.fit()
+```
 
 ## Pandas tips
 [Pandas GroupBy](https://pandas.pydata.org/pandas-docs/stable/groupby.html)
